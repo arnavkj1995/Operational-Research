@@ -1,3 +1,8 @@
+//Arnav Jain
+//13MA20011
+//Operatioanl Research Lab assignment 1
+//Solving Linear Programming Problem
+
 #include <vector>
 #include <list>
 #include <map>
@@ -56,7 +61,7 @@ void solution(int n){
                 temp[i + 1][j] -= c*temp[k][j];
         }
     //***************** Backward Substitution method****************//
-        for(i=0;i<n;i++)
+    for(i=0;i<n;i++)
     {
         for(j=0;j<=n;j++)
             printf("%6.1f",temp[i][j]);
@@ -220,7 +225,7 @@ int main()
     	}
     	if(cnt1 != (var - m))
     		continue;
-    	cout << i << endl;
+    	//cout << i << endl;
     	for(int k = 0 ; k < rank1 ; k++)
     	{
     		v = i;
