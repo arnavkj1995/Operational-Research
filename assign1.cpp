@@ -125,19 +125,6 @@ int rankOfMatrix(int R, int C)
 	}
 	return rank;
 }
-
-bool checkForSol(int n){
-    for(int i = 0 ; i < n ; i++){
-        for(int j = 0 ; j < n ; j++){
-            a[i][j] = temp[i][j];
-        }
-    }
-    if(rankOfMatrix(n, n) != n)
-        return false;
-    solution(n);
-    return true;
-
-}
 int main()
 {
     int rank1, rank2, i, j, var, eqn;
@@ -203,27 +190,60 @@ int main()
         	temp[k][ind] = mat[k][var];
         	//cout << temp[k][ind] << endl;
         }
-        ind = 0;
-        if(!checkForSol(n))
+        if(rankOfMatrix(cnt1, cnt1) != cnt1)
             continue;
+        for(int k = 0 ; k < rank1 ; k++)
+        {
+            v = i;
+            ind = 0;
+            for(j = 0 ; j < var ; j++){
+                if(v%2 == 1){
+                    temp[k][ind++] = mat[k][j];
+                    //cout << temp[k][ind - 1] << " ";
+                }
+                v = v/2;
+            }
+            temp[k][ind] = mat[k][var];
+            //cout << temp[k][ind] << endl;
+        }
+        ind = 0;
+        solution(var - m);
         v = i;
+        
     	for(j = 0 ; j < var ; j++){
     		if(v%2 == 1){
-    			cout << d[ind] << " ";
+    			//cout << d[ind] << " ";
     			ans[solInd][j] = d[ind++];
     		}
     		else{
     			ans[solInd][j] = 0;
     		}
-    		v = v/2;
+    		v = v/2;            
     	}
-    	cout << endl;
     	solInd++;
+    }
+    //print all BFS
+    for(int k = 0 ; k < solInd ; k++){
+        int check = 1;
+        for(int l = 0 ; l < var ; l++){
+            if(ans[k][l] < 0){
+                check = 0;
+                break;
+            }
+        }
+        if(check != 1)
+            continue;
+        printf("A basic feasible solution is ");
+        for(int l = 0 ; l < var ; l++){
+            printf("%f ", ans[k][l]);
+        }
+        printf("\n");
+        
     }
     // all answers are in array ans[][]
     printf("Enter coefficients of each variable as in objective function\n");
     for(i = 0 ; i < var ; i++){
-    	cout << "here" << endl;
+    	//cout << "here" << endl;
         scanf("%d",&z[i]);
 	}
 	float mnanswer = 999999.0, mxanswer = 0, curr = 0;
