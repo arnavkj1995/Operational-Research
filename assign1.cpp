@@ -34,17 +34,16 @@ void solution(int n){
     int i, j, k;
     for(int i = 0 ; i < 10 ; i++)
     	d[i] = 0;
-    for(i = n - 1 ; i > 0 ; i--)     
-    {
-    	
-        if(temp[i-1][0] < temp[i][0])
-            for(j = 0 ; j <= n ; j++)
-            {
-                c = temp[i][j];
-                temp[i][j] = temp[i - 1][j];
-                temp[i - 1][j] = c;
-            }
-    }
+    // for(i = n - 1 ; i > 0 ; i--)     
+    // {
+    //     if(temp[i-1][0] < temp[i][0])
+    //         for(j = 0 ; j <= n ; j++)
+    //         {
+    //             c = temp[i][j];
+    //             temp[i][j] = temp[i - 1][j];
+    //             temp[i - 1][j] = c;
+    //         }
+    // }
     
     //********* changing to upper triangular matrix*************//
     //********* Forward elimination process**************//
