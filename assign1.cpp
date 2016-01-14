@@ -26,7 +26,7 @@ using namespace std;
 
 float d[10]={0};
 float mat[10][10], b[10], temp[10][10];
-float ans[10][10];
+float ans[10][10], z[10];
 int R, C;
 
 void solution(int n){
@@ -125,18 +125,64 @@ int rankOfMatrix(int R, int C)
 	}
 	return rank;
 }
+
+void getMinimum(int solInd, int var){
+    float mnanswer = 999999.0, curr = 0;
+    for(int k = 0 ; k < solInd ; k++){
+        int check = 1;
+        curr = 0;
+        for(int l = 0 ; l < var ; l++){
+            if(ans[k][l] < 0){
+                check = 0;
+                break;
+            }
+        }
+        if(check != 1)
+            continue;
+        for(int l = 0 ; l < var ; l++){
+            curr = curr + ans[k][l]*z[l];
+        }
+        if(mnanswer > curr)
+            mnanswer = curr;
+        //find the answer here and print it here for each equation.
+    }
+    printf("The minimum is %6.1f\n", mnanswer);
+}
+
+void getMaximum(int solInd, int var){
+    float mxanswer = 0.0, curr = 0;
+    for(int k = 0 ; k < solInd ; k++){
+        int check = 1;
+        curr = 0;
+        for(int l = 0 ; l < var ; l++){
+            if(ans[k][l] < 0){
+                check = 0;
+                break;
+            }
+        }
+        if(check != 1)
+            continue;
+        for(int l = 0 ; l < var ; l++){
+            curr = curr + ans[k][l]*z[l];
+        }
+        if(mxanswer < curr)
+            mxanswer = curr;
+        //find the answer here and print it here for each equation.
+    }
+    printf("The maximum is %6.1f\n", mxanswer);
+}
 int main()
 {
     int rank1, rank2, i, j, var, eqn;
     printf("Enter no of variables\n");
     scanf("%d",&var);
-    int z[var];
+    
     printf("ENter no. of equations\n");
     scanf("%d",&eqn);
     //printf("Enter coefficient matrix - A \n");
     for(i = 0 ; i < eqn ; i++)
     {
-    	printf("Enter coefficients of equation no %d\n" , i + 1);
+    	printf("Enter coefficients with b of equation no %d\n" , i + 1);
         for(j = 0 ; j <= var ; j++)
         {
             scanf("%f",&mat[i][j]);
@@ -235,7 +281,7 @@ int main()
             continue;
         printf("A basic feasible solution is ");
         for(int l = 0 ; l < var ; l++){
-            printf("%f ", ans[k][l]);
+            printf("%6.2f ", ans[k][l]);
         }
         printf("\n");
         
@@ -244,30 +290,15 @@ int main()
     printf("Enter coefficients of each variable as in objective function\n");
     for(i = 0 ; i < var ; i++){
     	//cout << "here" << endl;
-        scanf("%d",&z[i]);
+        scanf("%f",&z[i]);
 	}
-	float mnanswer = 999999.0, mxanswer = 0, curr = 0;
-	for(int k = 0 ; k < solInd ; k++){
-    	int check = 1;
-    	curr = 0;
-    	for(int l = 0 ; l < var ; l++){
-    		if(ans[k][l] < 0){
-    			check = 0;
-    			break;
-    		}
-    	}
-    	if(check != 1)
-    		continue;
-    	for(int l = 0 ; l < var ; l++){
-    		curr = curr + ans[k][l]*z[l];
-    	}
-    	if(mnanswer > curr)
-    		mnanswer = curr;
-    	if(mxanswer < curr)
-    		mxanswer = curr;
-    	//find the answer here and print it here for each equation.
-    }
-    printf("The minimum is %6.1f ans the maximum is %6.1f\n", mnanswer, mxanswer);
+    printf("Enter 1 to get maximum, 2 to get minimum, 3 to get both \n");
+    int bl = 0;
+    scanf("%d", &bl);
+    if(bl&(1 << 1))
+        getMinimum(solInd, var);
+	if(bl&1)
+        getMaximum(solInd, var);
     return 0;
 }
 
