@@ -157,7 +157,7 @@ void getMinimum(int solInd, int var){
         }
         if(mnanswer > curr){
             mnanswer = curr;
-            cntmin = 0;
+            cntmin = 1;
         }
         else if(mnanswer == curr){
             cntmin++;
@@ -188,7 +188,7 @@ void getMaximum(int solInd, int var){
 
         if(mxanswer < curr){
             mxanswer = curr;
-            cntmax = 0;
+            cntmax = 1;
         }
         else if(mxanswer == curr)
             cntmax++;
